@@ -106,6 +106,15 @@ function SectionLabel({ children }: { children: string }) {
   return <p className="section-label">{children}</p>;
 }
 
+function FramedImage({ src, alt, className = "", loading = "lazy" }: { src: string; alt: string; className?: string; loading?: "eager" | "lazy" }) {
+  return (
+    <div className={`photo-frame ${className}`}>
+      <img className="photo-backdrop" src={src} alt="" aria-hidden="true" loading={loading} />
+      <img className="photo-original" src={src} alt={alt} loading={loading} />
+    </div>
+  );
+}
+
 function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -149,7 +158,14 @@ function HomePage() {
       <main>
         <section id="home" className="hero" aria-labelledby="hero-title">
           <img
-            className="hero-image"
+            className="hero-image hero-backdrop"
+            src={roomRoseWideAsset.url}
+            alt=""
+            aria-hidden="true"
+            fetchPriority="high"
+          />
+          <img
+            className="hero-image hero-original"
             src={roomRoseWideAsset.url}
             alt="Camera accogliente e luminosa di Sophora Guest House Alghero"
             fetchPriority="high"
@@ -183,7 +199,7 @@ function HomePage() {
             <a className="text-link" href="#camere">Scopri gli spazi <ArrowRight size={18} aria-hidden="true" /></a>
           </div>
           <figure className="intro-image reveal">
-            <img src={balconyAsset.url} alt="Interno luminoso con accesso al balcone di Sophora Guest House" loading="lazy" />
+            <FramedImage src={balconyAsset.url} alt="Interno luminoso con accesso al balcone di Sophora Guest House" />
             <figcaption>Dettagli naturali, luce mediterranea.</figcaption>
           </figure>
         </section>
@@ -202,7 +218,7 @@ function HomePage() {
               <article className="room-row" key={room.src}>
                 <div className="room-photo-wrap">
                   <span className="room-number">0{index + 1}</span>
-                  <img className="room-photo" src={room.src} alt={room.alt} loading="lazy" />
+                  <FramedImage className="room-photo" src={room.src} alt={room.alt} />
                 </div>
                 <div className="room-info">
                   <p className="placeholder-tag">Contenuto da completare</p>
@@ -238,7 +254,7 @@ function HomePage() {
 
         <section id="alghero" className="destination">
           <div className="destination-photo">
-            <img src={bathroomAsset.url} alt="Vista luminosa verso Alghero dagli interni della guest house" loading="lazy" />
+            <FramedImage src={bathroomAsset.url} alt="Vista luminosa verso Alghero dagli interni della guest house" />
           </div>
           <div className="destination-content">
             <SectionLabel>La destinazione</SectionLabel>
@@ -288,11 +304,11 @@ function HomePage() {
             </div>
           </div>
           <div className="gallery-grid">
-            <figure className="gallery-main"><img src={roomRoseAsset.url} alt="Camera dai toni naturali e rosa di Sophora" loading="lazy" /></figure>
-            <figure><img src={detailAsset.url} alt="Targa in legno Sophora Guest House Alghero" loading="lazy" /></figure>
-            <figure><img src={deskAsset.url} alt="Scrivania e specchio illuminato nella guest house" loading="lazy" /></figure>
-            <figure className="gallery-wide"><img src={roomDetailAsset.url} alt="Dettaglio della camera con vista sulla zona lavoro" loading="lazy" /></figure>
-            <figure><img src={bathroomAsset.url} alt="Bagno contemporaneo e luminoso di Sophora" loading="lazy" /></figure>
+            <figure className="gallery-main"><FramedImage src={roomRoseAsset.url} alt="Camera dai toni naturali e rosa di Sophora" /></figure>
+            <figure><FramedImage src={detailAsset.url} alt="Targa in legno Sophora Guest House Alghero" /></figure>
+            <figure><FramedImage src={deskAsset.url} alt="Scrivania e specchio illuminato nella guest house" /></figure>
+            <figure className="gallery-wide"><FramedImage src={roomDetailAsset.url} alt="Dettaglio della camera con vista sulla zona lavoro" /></figure>
+            <figure><FramedImage src={bathroomAsset.url} alt="Bagno contemporaneo e luminoso di Sophora" /></figure>
           </div>
         </section>
 
@@ -318,7 +334,7 @@ function HomePage() {
 
         <section id="contatti" className="contact">
           <div className="contact-photo">
-            <img src={roomIvoryAsset.url} alt="Atmosfera calma di una camera Sophora Guest House" loading="lazy" />
+            <FramedImage src={roomIvoryAsset.url} alt="Atmosfera calma di una camera Sophora Guest House" />
           </div>
           <div className="contact-content">
             <SectionLabel>Il tuo soggiorno</SectionLabel>
